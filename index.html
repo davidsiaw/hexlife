@@ -140,7 +140,7 @@
     canvas.addEventListener('mousedown', function(evt)
     {
         buttonDown = true;
-        placeCell(evt.x, evt.y, boardw, boardh);
+        placeCell(evt.layerX, evt.layerY, boardw, boardh);
 
     }, false);
 
@@ -151,10 +151,10 @@
 
     canvas.addEventListener('mousemove', function(evt)
     {
-        highlight = pixelToTile(evt.x, evt.y, boardw, boardh);
+        highlight = pixelToTile(evt.layerX, evt.layerY, boardw, boardh);
         if (buttonDown)
         {
-            placeCell(evt.x, evt.y, boardw, boardh);
+            placeCell(evt.layerX, evt.layerY, boardw, boardh);
         }
 
     }, false);
