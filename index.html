@@ -58,6 +58,9 @@
     var width = Math.max( body.scrollWidth, body.offsetWidth, 
                        html.clientWidth, html.scrollWidth, html.offsetWidth );
 
+    var boardw = width / 17;
+    var boardh = height / 16;
+
     x = 0;
     y = 0;
     z = 0;
@@ -77,23 +80,21 @@
     var startbutton = document.getElementById('startbutton');
     startbutton.style.position = "absolute";
     startbutton.style.left = 20+"px";
-    startbutton.style.top = 440+"px";
+    startbutton.style.top = (height - 50) +"px";
     startbutton.style.zIndex = 10;
 
     var stopbutton = document.getElementById('stopbutton');
     stopbutton.style.position = "absolute";
     stopbutton.style.left = 70+"px";
-    stopbutton.style.top = 440+"px";
+    stopbutton.style.top = (height - 50) +"px";
     stopbutton.style.zIndex = 10;
 
     var nextbutton = document.getElementById('nextbutton');
     nextbutton.style.position = "absolute";
     nextbutton.style.left = 130+"px";
-    nextbutton.style.top = 440+"px";
+    nextbutton.style.top = (height - 50) +"px";
     nextbutton.style.zIndex = 10;
 
-    var boardw = 80;
-    var boardh = 30;
 
     var board = [];
 
@@ -230,11 +231,6 @@
         context.fillStyle = "#000";
         context.fillRect(0, 0, w, h);
 
-        if (highlight)
-        {
-            context.drawImage(highlightHexImage, highlight.x, highlight.y);
-        }
-
         if (update)
         {
             // update
@@ -299,10 +295,16 @@
                 context.drawImage(hex, x, y);
             }
         }
+
+        if (highlight)
+        {
+            context.drawImage(highlightHexImage, highlight.x, highlight.y);
+        }
         
     }, 16)
 
 </script>
+
 
 
 </body>
