@@ -9,6 +9,7 @@
 <button id="startbutton">Start</button>
 <button id="stopbutton">Pause</button>
 <button id="nextbutton">Next</button>
+<button id="clearbutton">Clear</button>
 
 <canvas id="canvas" width="500" height="500"></canvas>
 
@@ -94,6 +95,12 @@
     nextbutton.style.left = 130+"px";
     nextbutton.style.top = (height - 50) +"px";
     nextbutton.style.zIndex = 10;
+
+    var clearbutton = document.getElementById('clearbutton');
+    clearbutton.style.position = "absolute";
+    clearbutton.style.left = 180+"px";
+    clearbutton.style.top = (height - 50) +"px";
+    clearbutton.style.zIndex = 10;
 
 
     var board = [];
@@ -221,9 +228,24 @@
         }
     }, false);
 
+
     nextbutton.addEventListener('click', function(evt)
     {
         update = true;
+    }, false);
+
+    clearbutton.addEventListener('click', function(evt)
+    {
+
+        var i=0,j=0;
+        for(i=0; i<boardw; i++)
+        {
+            board[i] = [];
+            for(j=0; j<boardh; j++)
+            {
+                board[i][j] = 0;
+            }
+        }
     }, false);
 
     setInterval(function()
