@@ -51,6 +51,17 @@
     emptyHexImage.src = "images/emptyhex.png";
     highlightHexImage.src = "images/highlighthex.png";
 
+    var filledHexImages = [];
+
+    for (var i=1;i<12;i++)
+    {
+        var img = new Image();
+        img.onload = function() {
+        };
+        img.src = "images/filled" + i + ".png";
+        filledHexImages.push(img);
+    }
+
     var body = document.body,
     html = document.documentElement;
 
@@ -58,6 +69,7 @@
                        html.clientHeight, html.scrollHeight, html.offsetHeight );
     var width = Math.max( body.scrollWidth, body.offsetWidth, 
                        html.clientWidth, html.scrollWidth, html.offsetWidth );
+
 
     var boardw = width / 17;
     var boardh = height / 16;
@@ -267,7 +279,10 @@
                     var count = 0;
                     for(cellIdx=0; cellIdx < adj.length; cellIdx++)
                     {
-                        count += board[adj[cellIdx].x][adj[cellIdx].y];
+                        if (board[adj[cellIdx].x][adj[cellIdx].y])
+                        {
+                            count += 1;
+                        }
                     }
 
                     if (board[i][j])
@@ -275,7 +290,7 @@
                         if (count == 3 || count == 4)
                         {
                             // stay alive
-                            newBoard[i][j] = 1;
+                            newBoard[i][j] = board[i][j] + 1;
                         }
                         else
                         {
@@ -312,7 +327,7 @@
                 var hex = emptyHexImage;
                 if (board[i][j])
                 {
-                    hex = filledHexImage;
+                    hex = filledHexImages[ (board[i][j]-1)  % filledHexImages.length];
                 }
                 context.drawImage(hex, x, y);
             }
