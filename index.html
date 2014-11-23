@@ -184,34 +184,32 @@
     }
 
     var buttonDown = false;
-
-    function placeCell(x,y,boardw, boardh)
-    {
-        highlight = pixelToTile(x, y, boardw, boardh, clamp);
-        if (highlight)
-        {
-            board[highlight.tilex][highlight.tiley] = 1;
-        }
-    }
+    var preventClick = false;
 
     canvas.addEventListener('mousedown', function(evt)
     {
         buttonDown = true;
-        placeCell(evt.layerX, evt.layerY, boardw, boardh);
-
     }, false);
 
     canvas.addEventListener('mouseup', function(evt)
     {
-        buttonDown = false;
+        highlight = pixelToTile(evt.layerX, evt.layerY, boardw, boardh, clamp);
+        if (highlight && !preventClick)
+        {
+            board[highlight.tilex][highlight.tiley] = !board[highlight.tilex][highlight.tiley];
+        }
+
+        preventClick = false;
+        buttonDown = false;        
     }, false);
 
     canvas.addEventListener('mousemove', function(evt)
     {
         highlight = pixelToTile(evt.layerX, evt.layerY, boardw, boardh, clamp);
-        if (buttonDown)
+        if (buttonDown && highlight)
         {
-            placeCell(evt.layerX, evt.layerY, boardw, boardh);
+             preventClick = true;
+             board[highlight.tilex][highlight.tiley] = 1;
         }
 
     }, false);
